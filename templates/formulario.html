@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Venta</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+</head>
+<body>
+    <div class="container">
+        
+        <img src="{{ url_for('static', filename='Dodge.jpg') }}" alt="Logo de Dodge">
+        
+        
+        {% if mensaje %}
+        <div class="mensaje">
+            <p>{{ mensaje }}</p>
+        </div>
+        {% endif %}
+
+        <center>
+            <h4>Datos de la Venta</h4>
+            <div class="title-line-red"></div>
+        </center>
+
+        <form action="{{ url_for('formulario') }}" method="POST">
+            
+            <div class="input-group">
+                <label for="carro">Seleccione Referencia:</label>
+                <select id="carro" name="carro" required onchange="actualizarVersiones()">
+                    <option value="">Elija una Opción</option>
+                    <option value="Challenger" {% if request.form['carro']=='Challenger' %}selected{% endif %}>Challenger</option>
+                    <option value="Charger" {% if request.form['carro']=='Charger' %}selected{% endif %}>Charger</option>
+                    <option value="Durango" {% if request.form['carro']=='Durango' %}selected{% endif %}>Durango</option>
+                    <option value="Viper" {% if request.form['carro']=='Viper' %}selected{% endif %}>Viper</option>
+                    <option value="RAM TRX" {% if request.form['carro']=='RAM TRX' %}selected{% endif %}>RAM TRX</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="version">Seleccione Versión:</label>
+                <select id="version" name="version" required onchange="actualizarPrecio()">
+                    <option value="">Elija una Opción</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="anioCarro">Año del Carro:</label>
+                <select id="anioCarro" name="anioCarro" required onchange="actualizarPrecio()">
+                    <option value="">Elija una Opción</option>
+                    <option value="2024" {% if request.form['anioCarro']=='2024' %}selected{% endif %}>2024</option>
+                    <option value="2023" {% if request.form['anioCarro']=='2023' %}selected{% endif %}>2023</option>
+                    <option value="2022" {% if request.form['anioCarro']=='2022' %}selected{% endif %}>2022</option>
+                    <option value="2021" {% if request.form['anioCarro']=='2021' %}selected{% endif %}>2021</option>
+                    <option value="2020" {% if request.form['anioCarro']=='2020' %}selected{% endif %}>2020</option>
+                    <option value="2019" {% if request.form['anioCarro']=='2019' %}selected{% endif %}>2019</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="fechaVenta">Fecha de Venta:</label>
+                <input type="date" id="fechaVenta" name="fechaVenta" required
+                    value="{{ request.form['fechaVenta'] if request.form['fechaVenta'] else '' }}">
+            </div>
+
+            <div class="input-group">
+                <label for="montoTotal">Monto Total:</label>
+                <input type="text" id="montoTotal" name="montoTotal" readonly
+                    value="{{ request.form['montoTotal'] if request.form['montoTotal'] else '' }}">
+                
+                <input type="hidden" id="montoTotalHidden" name="montoTotalHidden"
+                    value="{{ request.form['montoTotalHidden'] if request.form['montoTotalHidden'] else '' }}">
+            </div>
+
+            
+            <a href="{{ url_for('inicio') }}" class="button">Ir a Inicio</a>
+            <button type="submit">Registrar Venta</button>
+            <a href="{{ url_for('estadisticas') }}" class="button">Ir a Estadísticas</a>
+        </form>
+
+        
+        <footer>
+            <p>&copy; <span id="current-year"></span> Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <!-- actualizar las versiones y calcular el monto total -->
+    <script>
+        const versionesPorReferencia = {
+            "Challenger": ["Hellcat", "SuperBee", "ScatPack", "R/T", "SXT", "GT"],
+            "Charger": ["Hellcat", "ScatPack", "R/T", "SXT", "SE"],
+            "Durango": ["Hellcat", "R/T", "Citadel", "SXT", "GT"],
+            "Viper": ["GTS", "ACR", "Base Model"],
+            "RAM TRX": ["Rebel", "Laramie", "Limited", "Tradesman"]
+        };
+
+        const preciosBase = {
+            "Challenger": { "Hellcat": 250000000, "SuperBee": 230000000, "ScatPack": 210000000, "R/T": 200000000, "SXT": 190000000, "GT": 180000000 },
+            "Charger": { "Hellcat": 240000000, "ScatPack": 220000000, "R/T": 210000000, "SXT": 200000000, "SE": 190000000 },
+            "Durango": { "Hellcat": 260000000, "R/T": 240000000, "Citadel": 230000000, "SXT": 220000000, "GT": 210000000 },
+            "Viper": { "GTS": 300000000, "ACR": 280000000, "Base Model": 260000000 },
+            "RAM TRX": { "Rebel": 270000000, "Laramie": 260000000, "Limited": 250000000, "Tradesman": 240000000 }
+        };
+
+        function formatearPrecio(valor) {
+            return new Intl.NumberFormat('es-CO', { style: 'decimal', minimumFractionDigits: 2 }).format(valor);
+        }
+
+        function actualizarVersiones() {
+            const referencia = document.getElementById("carro").value;
+            const versionSelect = document.getElementById("version");
+            // Limpiar las opciones actuales
+            versionSelect.innerHTML = '<option value="">Elija una Opción</option>';
+            // Agregar nuevas opciones según la referencia seleccionada
+            if (referencia && versionesPorReferencia[referencia]) {
+                versionesPorReferencia[referencia].forEach(version => {
+                    const option = document.createElement("option");
+                    option.value = version;
+                    option.textContent = version;
+                    versionSelect.appendChild(option);
+                });
+            }
+            // Actualizar el precio automáticamente
+            actualizarPrecio();
+        }
+
+        function actualizarPrecio() {
+            const referencia = document.getElementById("carro").value;
+            const version = document.getElementById("version").value;
+            const anio = parseInt(document.getElementById("anioCarro").value);
+            if (referencia && version && anio) {
+                let precioBase = preciosBase[referencia][version] || 0;
+                let descuentoPorAnio = (2024 - anio) * 10000000; // Depreciación de $10M por año
+                let precioFinal = precioBase - descuentoPorAnio;
+                precioFinal = Math.max(precioFinal, 0); // Evitar precios negativos
+                // Mostrar el precio formateado en el campo visible
+                document.getElementById("montoTotal").value = formatearPrecio(precioFinal);
+                // Guardar el precio sin formato en el campo oculto
+                document.getElementById("montoTotalHidden").value = precioFinal.toFixed(2);
+            } else {
+                document.getElementById("montoTotal").value = "";
+                document.getElementById("montoTotalHidden").value = "";
+            }
+        }
+
+        // Mostrar el año actual en el footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

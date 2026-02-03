@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='estadisticas.css') }}">
+</head>
+<body>
+    
+    <h1>Estadísticas de Ventas</h1>
+
+   
+    <div class="total-ingresos-box">
+        <h2>Total de Ingresos</h2>
+        <p class="total-ingresos-amount">${{ '{:,.2f}'.format(total_ingresos).replace(',', 'X').replace('.', ',').replace('X', '.') }}</p>
+    </div>
+
+    
+    <h2>Gráficos Generados desde la Base de Datos</h2>
+    <div class="charts-grid">
+        <!-- Fila -->
+        <div class="chart-card">
+            <img src="{{ url_for('static', filename='graficos/ventas_por_referencia.png') }}" alt="Gráfico de Ventas por Referencia">
+            <div class="chart-caption">
+                <h3>Ventas por Referencia</h3>
+                <p>Distribución de las ventas por referencia de vehículo.</p>
+            </div>
+        </div>
+        <div class="chart-card">
+            <img src="{{ url_for('static', filename='graficos/ingresos_totales.png') }}" alt="Gráfico de Ingresos por Referencia">
+            <div class="chart-caption">
+                <h3>Ingresos por Referencia</h3>
+                <p>Total de ingresos generados por cada referencia de vehículo.</p>
+            </div>
+        </div>
+        <!-- Fila -->
+        <div class="chart-card">
+            <img src="{{ url_for('static', filename='graficos/anios_mas_vendidos.png') }}" alt="Gráfico de Ventas por Año">
+            <div class="chart-caption">
+                <h3>Años de Carros Más Vendidos</h3>
+                <p>Distribución de ventas por el año del carro.</p>
+            </div>
+        </div>
+        <div class="chart-card">
+            <img src="{{ url_for('static', filename='graficos/distribucion_versiones.png') }}" alt="Gráfico de Distribución de Versiones">
+            <div class="chart-caption">
+                <h3>Distribución de Versiones Vendidas</h3>
+                <p>Porcentaje de ventas por versión de vehículo.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Sección 2: Subir Archivo CSV -->
+    <h2>Subir Archivo CSV para Análisis Adicional</h2>
+    <form id="csv-form" enctype="multipart/form-data">
+        <label for="archivo">Selecciona un archivo CSV:</label>
+        <input type="file" id="archivo" name="archivo" accept=".csv" required>
+        <button type="submit">Procesar CSV</button>
+    </form>
+
+    <!-- Resultados del CSV en una tabla -->
+    <div id="resultados-csv" style="margin-top: 20px; display: none;">
+        <h3>Resultados del CSV</h3>
+        <table class="estadisticas-table">
+            <thead>
+                <tr>
+                    <th>Métrica</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total de Ventas</td>
+                    <td id="csv-total-ventas"></td>
+                </tr>
+                <tr>
+                    <td>Promedio de Precios</td>
+                    <td id="csv-promedio-precios"></td>
+                </tr>
+                <tr>
+                    <td>Referencia Más Vendida</td>
+                    <td id="csv-referencia-mas-vendida"></td>
+                </tr>
+                <tr>
+                    <td>Versión Más Vendida</td>
+                    <td id="csv-version-mas-vendida"></td>
+                </tr>
+                <tr>
+                    <td>Valor Total de Ventas</td>
+                    <td id="csv-valor-total-ventas"></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Botón de Descarga CSV Limpio -->
+        <div id="descargar-csv-limpio" style="margin-top: 20px;"></div>
+    </div>
+
+    <!-- Botones de navegación -->
+    <div class="navigation-buttons">
+        <a href="{{ url_for('inicio') }}" class="button">Ir al Inicio</a>
+        <a href="{{ url_for('formulario') }}" class="button">Volver al Formulario</a>
+    </div>
+
+    <!-- Script para manejar el formulario CSV -->
+    <script>
+        // Función para formatear números con puntos como separadores de miles y coma como separador decimal
+        function formatNumber(value) {
+            return value.toLocaleString('es-ES', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        document.getElementById('csv-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData();
+            const archivo = document.getElementById('archivo').files[0];
+            formData.append('archivo', archivo);
+
+            try {
+                const response = await fetch('/procesar_csv', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Mostrar los resultados en la tabla
+                    document.getElementById('csv-total-ventas').textContent = data.total_ventas;
+                    document.getElementById('csv-promedio-precios').textContent = `$${formatNumber(data.promedio_precios)}`;
+                    document.getElementById('csv-referencia-mas-vendida').textContent = data.referencia_mas_vendida;
+                    document.getElementById('csv-version-mas-vendida').textContent = data.version_mas_vendida;
+                    document.getElementById('csv-valor-total-ventas').textContent = `$${formatNumber(data.valor_total_ventas)}`;
+
+                    // Mostrar la sección de resultados
+                    document.getElementById('resultados-csv').style.display = 'block';
+                } else {
+                    alert(`Error: ${data.error}`);
+                }
+            } catch (error) {
+                alert(`Ocurrió un error: ${error.message}`);
+            }
+        });
+    </script>
+</body>
+</html>

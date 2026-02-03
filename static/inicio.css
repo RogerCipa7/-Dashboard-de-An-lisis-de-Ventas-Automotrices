@@ -1,0 +1,104 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* Fondo gris oscuro */
+    font-family: Arial, sans-serif;
+    color: #fff; /* Color de texto general */
+    overflow-y: auto; /* Habilitar scroll vertical */
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
+}
+
+/* Contenedor principal */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente claro */
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Sombra blanca */
+    z-index: 1; /* Encima del fondo */
+    margin: 20px auto; /* Centrar el contenedor */
+}
+/* Estilos para el contenedor de la imagen */
+.logo-container {
+    display: flex; /* Usar flexbox para alinear elementos */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    margin: 20px auto; /* Espaciado superior e inferior */
+    max-width: 600px; /* Ancho máximo del contenedor */
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0px 10px 50px rgba(177, 16, 16, 0.6); /* Sombra elegante */
+}
+
+
+
+/* Título */
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    color: #fff; /* Texto blanco */
+}
+
+/* Galería de fotos (carrusel) */
+.gallery {
+    margin: 20px 0;
+    position: relative;
+}
+.gallery img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Texto descriptivo en el carrusel */
+.carousel-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente oscuro */
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 80%;
+    max-width: 600px;
+}
+.carousel-caption h3 {
+    margin: 0;
+    font-size: 24px;
+    color: #fff;
+}
+.carousel-caption p {
+    margin: 5px 0 0;
+    font-size: 16px;
+    color: #ccc;
+}
+
+/* Botones de navegación */
+.navigation-buttons {
+    margin-top: 20px;
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: rgba(255, 0, 0, 0.6); /* Fondo rojo con transparencia */
+    color: white;
+    text-decoration: none;
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+.button:hover {
+    background-color: white;
+    color: red;
+    border: 2px solid red;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+}

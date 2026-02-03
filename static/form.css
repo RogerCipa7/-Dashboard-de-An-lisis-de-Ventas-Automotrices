@@ -1,0 +1,177 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('fond.jpg'); /* Cambia 'fondo.jpg' por la ruta de tu imagen */
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    color: #fff; /* Color de texto general */
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    min-height: 100vh; /* Altura mínima de la pantalla */
+}
+
+/* Contenedor principal */
+.container {
+    width: 100%;
+    max-width: 500px; /* Ancho máximo del formulario */
+    padding: 25px;
+    background-color: rgba(0, 0, 0, 0.8); /* Más opacidad para mejor legibilidad */
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0px 10px 50px rgba(177, 16, 16, 0.6); /* Efecto de sombra */
+    animation: fadeIn 1s ease-in-out; /* Animación de entrada */
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Imagen del logo */
+.container img {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 200px; /* Tamaño máximo de la imagen */
+    border-radius: 8px; /* Bordes redondeados para el logo */
+}
+
+/* Mensaje de confirmación */
+.mensaje {
+    background-color: #d4edda; /* Verde claro */
+    color: #155724; /* Texto oscuro */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Encabezados */
+h2, h3, h4 {
+    margin-top: 0;
+    font-size: 24px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px; /* Espaciado entre letras */
+}
+
+/* Línea decorativa */
+.title-line-red {
+    width: 80%;
+    max-width: 500px;
+    height: 5px;
+    background-color: rgba(255, 0, 0, 0.6);
+    margin: 10px auto;
+    border-radius: 5px;
+}
+
+/* Campos del formulario */
+.input-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+/* Etiquetas */
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #ccc; /* Color más claro para las etiquetas */
+}
+
+/* Campos de entrada y select */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    background-color: white;
+    box-sizing: border-box;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+/* Efecto al enfocar */
+input:focus, select:focus {
+    border-color: red;
+    box-shadow: 0 0 5px red;
+}
+
+/* Botón */
+button {
+    padding: 15px 25px;
+    background-color: rgba(255, 0, 0, 0.6);
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.5s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Efecto hover */
+button:hover {
+    background-color: white;
+    color: red;
+    border: 2px solid red;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+}
+
+/* Contenedor de botones de navegación */
+.navigation-buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Estilos para los botones */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: rgba(255, 0, 0, 0.6);
+    color: white;
+    text-decoration: none;
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Efecto hover para los botones */
+.button:hover {
+    background-color: white;
+    color: red;
+    border: 2px solid red;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+}
+
+/* Pie de página */
+footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #bbb;
+}

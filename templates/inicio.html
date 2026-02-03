@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='inicio.css') }}">
+    <!-- Librería para el carrusel (Slick Carousel) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+</head>
+<body>
+
+
+    
+    <div class="container">
+
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='Dodge.jpg') }}" alt="Logo de Dodge" class="logo">
+        </div>
+       
+        <h1>Bienvenido a la Página de Inicio</h1>
+
+        
+        <div class="content-wrapper">
+            
+            <div class="gallery">
+                <div>
+                    <img src="{{ url_for('static', filename='durango.jpg') }}" alt="Dodge Durango">
+                    <div class="carousel-caption">
+                        <h3>Dodge Durango</h3>
+                        <p>Un SUV de alto rendimiento con capacidad para toda la familia.</p>
+                    </div>
+                </div>
+                <div>
+                    <img src="{{ url_for('static', filename='challenger.jpg') }}" alt="Dodge Challenger">
+                    <div class="carousel-caption">
+                        <h3>Dodge Challenger</h3>
+                        <p>Un muscle car icónico con un diseño agresivo y motor potente.</p>
+                    </div>
+                </div>
+                <div>
+                    <img src="{{ url_for('static', filename='charger.jpg') }}" alt="Dodge Charger">
+                    <div class="carousel-caption">
+                        <h3>Dodge Charger</h3>
+                        <p>Un sedán deportivo con rendimiento impresionante y diseño moderno.</p>
+                    </div>
+                </div>
+                <div>
+                    <img src="{{ url_for('static', filename='viper.jpg') }}" alt="Dodge Viper">
+                    <div class="carousel-caption">
+                        <h3>Dodge Viper</h3>
+                        <p>Un superdeportivo legendario con motor V10 y rendimiento extremo.</p>
+                    </div>
+                </div>
+                <div>
+                    <img src="{{ url_for('static', filename='ram.jpg') }}" alt="Dodge RAM TRX">
+                    <div class="carousel-caption">
+                        <h3>Dodge RAM TRX</h3>
+                        <p>Un monstruo todoterreno con motor V8 Hellcat de 702 caballos de fuerza.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="navigation-buttons">
+                <a href="{{ url_for('formulario') }}" class="button">Formulario</a>
+                <a href="{{ url_for('estadisticas') }}" class="button">Ir a Estadísticas</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        // Inicializar el carrusel principal
+        $(document).ready(function () {
+            $('.gallery').slick({
+                autoplay: true,
+                autoplaySpeed: 3000,
+                dots: true,
+                arrows: true,
+                infinite: true,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear'
+            });
+        });
+    </script>
+</body>
+</html>
