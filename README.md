@@ -378,9 +378,7 @@ Este proyecto está bajo la Licencia MIT. Ver archivo `LICENSE` para más detall
 
 ## 📞 Contacto
 
-**Tu Nombre** - [@tu_twitter](https://twitter.com/tu_twitter)
-
-**Link del Proyecto:** [https://github.com/tu-usuario/dashboard-ventas-automotrices](https://github.com/tu-usuario/dashboard-ventas-automotrices)
+**Link del Proyecto:** [[https://github.com/tu-usuario/dashboard-ventas-automotrices](https://github.com/tu-usuario/dashboard-ventas-automotrices](https://github.com/RogerCipa7/-Dashboard-de-Analisis-de-Ventas-Automotrices)
 
 ---
 
